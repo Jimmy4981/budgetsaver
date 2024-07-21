@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Login</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -14,20 +14,30 @@
         <nav id="nav-menu">
             <ul>
                 <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
                 <li><a href="dashboard.html">Dashboard</a></li>
                 <li><a href="transactions.html">Transactions</a></li>
                 <li><a href="budget.html">Budget</a></li>
                 <li><a href="help.html">Help</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="register.html">Register</a></li>
             </ul>
         </nav>
     </header>
     <main>
         <div class="container">
             <div class="card">
-                <h1>Welcome to My Website</h1>
-                <p>This is the homepage.</p>
+                <h1>Login</h1>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
             </div>
         </div>
     </main>
