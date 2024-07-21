@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login or Register</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -15,7 +15,6 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="login.html">Login</a></li>
-                <li><a href="register.html">Register</a></li>
                 <li><a href="dashboard.html">Dashboard</a></li>
                 <li><a href="transactions.html">Transactions</a></li>
                 <li><a href="budget.html">Budget</a></li>
@@ -26,29 +25,43 @@
     <main>
         <div class="container">
             <div class="card">
-                <h1>Login</h1>
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" required>
+                <h1>Login or Register</h1>
+                <div id="auth-container">
+                    <div id="login-form">
+                        <h2>Login</h2>
+                        <form id="loginForm">
+                            <div class="form-group">
+                                <label for="login-email">Email:</label>
+                                <input type="email" id="login-email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="login-password">Password:</label>
+                                <input type="password" id="login-password" required>
+                            </div>
+                            <button type="submit">Login</button>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" required>
+                    <div id="register-form">
+                        <h2>Register</h2>
+                        <form id="registerForm">
+                            <div class="form-group">
+                                <label for="register-email">Email:</label>
+                                <input type="email" id="register-email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-password">Password:</label>
+                                <input type="password" id="register-password" required>
+                            </div>
+                            <button type="submit">Register</button>
+                        </form>
                     </div>
-                    <button type="submit">Login</button>
-                </form>
+                    <div>
+                        <button id="googleSignIn">Sign in with Google</button>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
-    <footer>
-        &copy; 2024 My Website
-    </footer>
-
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="js/script.js"></script>
+    <script type="module" src="js/script.js"></script>
 </body>
 </html>
