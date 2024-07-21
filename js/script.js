@@ -1,11 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyBteffHPQmgc7D7ksboNcREq66HPESerOs",
   authDomain: "budgetapp-e249a.firebaseapp.com",
@@ -18,13 +16,15 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const analytics = getAnalytics(app);
 
-
+// Google Auth Provider
+const provider = new GoogleAuthProvider();
 
 document.addEventListener('DOMContentLoaded', () => {
     // Check authentication state
-    auth.onAuthStateChanged(user => {
+    onAuthStateChanged(auth, user => {
         const isLoggedInPage = window.location.pathname === '/login.html' || window.location.pathname === '/register.html';
         
         if (user) {
@@ -48,10 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('loginForm')) {
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
             try {
-                await auth.signInWithEmailAndPassword(email, password);
+                await signInWithEmailAndPassword(auth, email, password);
                 console.log('User logged in');
                 window.location.href = '/dashboard.html'; // Redirect to dashboard after successful login
             } catch (error) {
@@ -65,15 +65,29 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('registerForm')) {
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
             try {
-                await auth.createUserWithEmailAndPassword(email, password);
+                await createUserWithEmailAndPassword(auth, email, password);
                 console.log('User registered');
                 window.location.href = '/dashboard.html'; // Redirect to dashboard after successful registration
             } catch (error) {
                 console.error('Error registering user:', error.message);
                 alert('Registration failed: ' + error.message);
+            }
+        });
+    }
+
+    // Google Sign-In button
+    if (document.getElementById('googleSignIn')) {
+        document.getElementById('googleSignIn').addEventListener('click', async () => {
+            try {
+                await signInWithPopup(auth, provider);
+                console.log('User signed in with Google');
+                window.location.href = '/dashboard.html'; // Redirect to dashboard after successful sign-in
+            } catch (error) {
+                console.error('Error signing in with Google:', error.message);
+                alert('Google sign-in failed: ' + error.message);
             }
         });
     }
