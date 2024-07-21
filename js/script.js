@@ -13,67 +13,26 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// User Registration
-const registerUser = async (email, password) => {
-    try {
-        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-        console.log('User registered:', userCredential.user);
-    } catch (error) {
-        console.error('Error registering user:', error);
-    }
-};
-
-// User Login
-const loginUser = async (email, password) => {
-    try {
-        const userCredential = await auth.signInWithEmailAndPassword(email, password);
-        console.log('User logged in:', userCredential.user);
-    } catch (error) {
-        console.error('Error logging in user:', error);
-    }
-};
-
-// Check if user is logged in
-auth.onAuthStateChanged(user => {
-    if (user) {
-        console.log('User is logged in:', user);
-    } else {
-        console.log('No user is logged in');
-    }
-});
-
-// Firestore Example: Add Data
-const addUserDocument = async (userId, data) => {
-    try {
-        await db.collection('users').doc(userId).set(data);
-        console.log('User document added');
-    } catch (error) {
-        console.error('Error adding user document:', error);
-    }
-};
-
-// Firestore Example: Get Data
-const getUserDocument = async (userId) => {
-    try {
-        const userDoc = await db.collection('users').doc(userId).get();
-        if (userDoc.exists) {
-            console.log('User document data:', userDoc.data());
-        } else {
-            console.log('No such document!');
-        }
-    } catch (error) {
-        console.error('Error getting user document:', error);
-    }
-};
-
-// Example usage
 document.addEventListener('DOMContentLoaded', () => {
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    const navMenu = document.getElementById('nav-menu');
+
+    // Toggle navigation menu visibility
+    hamburgerMenu.addEventListener('click', () => {
+        navMenu.classList.toggle('visible');
+    });
+
     if (document.getElementById('loginForm')) {
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            await loginUser(email, password);
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+                console.log('User logged in');
+            } catch (error) {
+                console.error('Error logging in user:', error);
+            }
         });
     }
 
@@ -82,7 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            await registerUser(email, password);
+            try {
+                await auth.createUserWithEmailAndPassword(email, password);
+                console.log('User registered');
+            } catch (error) {
+                console.error('Error registering user:', error);
+            }
         });
     }
 });
