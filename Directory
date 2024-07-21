@@ -1,0 +1,10 @@
+/my-website
+  /css
+    style.css
+  /js
+    script.js
+  index.html
+  dashboard.html
+  transactions.html
+  budget.html
+  help.html
