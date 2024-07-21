@@ -14,14 +14,28 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 
 document.addEventListener('DOMContentLoaded', () => {
-    const hamburgerMenu = document.getElementById('hamburger-menu');
-    const navMenu = document.getElementById('nav-menu');
+    // Check authentication state
+    auth.onAuthStateChanged(user => {
+        const isLoggedInPage = window.location.pathname === '/login.html' || window.location.pathname === '/register.html';
+        
+        if (user) {
+            console.log('User is logged in:', user.email);
 
-    // Toggle navigation menu visibility
-    hamburgerMenu.addEventListener('click', () => {
-        navMenu.classList.toggle('visible');
+            // Redirect to dashboard or any other authenticated-only page if on login or register pages
+            if (isLoggedInPage) {
+                window.location.href = '/dashboard.html';
+            }
+        } else {
+            console.log('No user is logged in');
+
+            // Redirect to login if trying to access protected pages
+            if (!isLoggedInPage) {
+                window.location.href = '/login.html';
+            }
+        }
     });
 
+    // Login form submission
     if (document.getElementById('loginForm')) {
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -30,12 +44,15 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 await auth.signInWithEmailAndPassword(email, password);
                 console.log('User logged in');
+                window.location.href = '/dashboard.html'; // Redirect to dashboard after successful login
             } catch (error) {
-                console.error('Error logging in user:', error);
+                console.error('Error logging in user:', error.message);
+                alert('Login failed: ' + error.message);
             }
         });
     }
 
+    // Registration form submission
     if (document.getElementById('registerForm')) {
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -44,9 +61,21 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 await auth.createUserWithEmailAndPassword(email, password);
                 console.log('User registered');
+                window.location.href = '/dashboard.html'; // Redirect to dashboard after successful registration
             } catch (error) {
-                console.error('Error registering user:', error);
+                console.error('Error registering user:', error.message);
+                alert('Registration failed: ' + error.message);
             }
+        });
+    }
+
+    // Hamburger menu functionality
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    const navMenu = document.getElementById('nav-menu');
+
+    if (hamburgerMenu && navMenu) {
+        hamburgerMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('visible');
         });
     }
 });
