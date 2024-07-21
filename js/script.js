@@ -2,11 +2,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const hamburgerMenu = document.getElementById('hamburger-menu');
     const navMenu = document.getElementById('nav-menu');
 
-    hamburgerMenu.addEventListener('mouseover', function() {
-        navMenu.style.display = 'block';
+    // Toggle navigation on hamburger menu click
+    hamburgerMenu.addEventListener('click', function() {
+        navMenu.style.display = navMenu.style.display === 'block' ? 'none' : 'block';
     });
 
-    navMenu.addEventListener('mouseleave', function() {
-        navMenu.style.display = 'none';
+    // Close navigation on outside click (optional)
+    document.addEventListener('click', function(event) {
+        if (!hamburgerMenu.contains(event.target) && !navMenu.contains(event.target)) {
+            navMenu.style.display = 'none';
+        }
     });
 });
