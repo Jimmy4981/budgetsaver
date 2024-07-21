@@ -4,7 +4,8 @@ const firebaseConfig = {
     authDomain: "budgetapp-e249a.firebaseapp.com",
     projectId: "budgetapp-e249a",
     storageBucket: "budgetapp-e249a.appspot.com",
-    messagingSenderId: "141764724343"
+    messagingSenderId: "141764724343",
+    appId: "1:141764724343:web:0ee200a8b24cb030b1a872"
 };
 
 // Initialize Firebase
