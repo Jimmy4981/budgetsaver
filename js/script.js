@@ -5,7 +5,7 @@ const firebaseConfig = {
     projectId: "budgetapp-e249a",
     storageBucket: "budgetapp-e249a.appspot.com",
     messagingSenderId: "141764724343",
-    appId: "your-app-id" // You need to add the appId here as well.
+    appId: "your-app-id"
 };
 
 // Initialize Firebase
