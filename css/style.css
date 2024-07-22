@@ -124,3 +124,20 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+/* Active form class */
+#login-form,
+#register-form {
+    display: none;
+}
+
+#login-form.active,
+#register-form.active {
+    display: block;
+}
+
+/* Tabs */
+#login-tab.active,
+#register-tab.active {
+    font-weight: bold;
+}
