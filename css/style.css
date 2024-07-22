@@ -98,14 +98,22 @@ button#googleSignIn:hover {
     cursor: pointer;
 }
 
+#nav-menu {
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 #nav-menu ul {
     list-style-type: none;
     padding: 0;
 }
 
 #nav-menu ul li {
-    display: inline;
-    margin-right: 10px;
+    padding: 10px 20px;
 }
 
 #nav-menu ul li a {
@@ -115,4 +123,9 @@ button#googleSignIn:hover {
 
 #nav-menu ul li a:hover {
     color: #4CAF50;
+}
+
+.hamburger-menu:hover + #nav-menu,
+#nav-menu:hover {
+    display: block;
 }
