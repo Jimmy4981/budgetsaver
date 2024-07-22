@@ -23,9 +23,36 @@ body {
     align-items: center;
 }
 
-h1, h2 {
+h1 {
     margin: 0;
     padding: 10px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab-link {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background-color: #f1f1f1;
+    margin-right: 5px;
+}
+
+.tab-link.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
 }
 
 .form-group {
