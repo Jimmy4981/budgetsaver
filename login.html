@@ -27,8 +27,11 @@
             <div class="card">
                 <h1>Login or Register</h1>
                 <div id="auth-container">
-                    <div id="login-form">
-                        <h2>Login</h2>
+                    <div class="tabs">
+                        <button class="tab-link active" id="login-tab">Login</button>
+                        <button class="tab-link" id="register-tab">Register</button>
+                    </div>
+                    <div id="login-form" class="tab-content active">
                         <form id="loginForm">
                             <div class="form-group">
                                 <label for="login-email">Email:</label>
@@ -40,9 +43,9 @@
                             </div>
                             <button type="submit">Login</button>
                         </form>
+                        <button id="googleSignIn">Sign in with Google</button>
                     </div>
-                    <div id="register-form">
-                        <h2>Register</h2>
+                    <div id="register-form" class="tab-content">
                         <form id="registerForm">
                             <div class="form-group">
                                 <label for="register-email">Email:</label>
@@ -54,8 +57,6 @@
                             </div>
                             <button type="submit">Register</button>
                         </form>
-                    </div>
-                    <div>
                         <button id="googleSignIn">Sign in with Google</button>
                     </div>
                 </div>
