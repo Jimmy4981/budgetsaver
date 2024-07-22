@@ -1,6 +1,5 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
 
 // Your web app's Firebase configuration
@@ -17,30 +16,34 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const analytics = getAnalytics(app);
-
-// Google Auth Provider
 const provider = new GoogleAuthProvider();
 
+// Tab switching functionality
 document.addEventListener('DOMContentLoaded', () => {
+    const loginTab = document.getElementById('login-tab');
+    const registerTab = document.getElementById('register-tab');
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+
+    loginTab.addEventListener('click', () => {
+        loginForm.classList.add('active');
+        registerForm.classList.remove('active');
+        loginTab.classList.add('active');
+        registerTab.classList.remove('active');
+    });
+
+    registerTab.addEventListener('click', () => {
+        registerForm.classList.add('active');
+        loginForm.classList.remove('active');
+        registerTab.classList.add('active');
+        loginTab.classList.remove('active');
+    });
+
     // Check authentication state
     onAuthStateChanged(auth, user => {
-        const isLoggedInPage = window.location.pathname === '/login.html' || window.location.pathname === '/register.html';
-        
         if (user) {
             console.log('User is logged in:', user.email);
-
-            // Redirect to dashboard or any other authenticated-only page if on login or register pages
-            if (isLoggedInPage) {
-                window.location.href = '/dashboard.html';
-            }
-        } else {
-            console.log('No user is logged in');
-
-            // Redirect to login if trying to access protected pages
-            if (!isLoggedInPage) {
-                window.location.href = '/login.html';
-            }
+            window.location.href = '/dashboard.html';
         }
     });
 
@@ -53,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 await signInWithEmailAndPassword(auth, email, password);
                 console.log('User logged in');
-                window.location.href = '/dashboard.html'; // Redirect to dashboard after successful login
+                window.location.href = '/dashboard.html';
             } catch (error) {
                 console.error('Error logging in user:', error.message);
                 alert('Login failed: ' + error.message);
@@ -70,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 await createUserWithEmailAndPassword(auth, email, password);
                 console.log('User registered');
-                window.location.href = '/dashboard.html'; // Redirect to dashboard after successful registration
+                window.location.href = '/dashboard.html';
             } catch (error) {
                 console.error('Error registering user:', error.message);
                 alert('Registration failed: ' + error.message);
@@ -78,13 +81,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Google Sign-In button
+    // Google sign-in button
     if (document.getElementById('googleSignIn')) {
         document.getElementById('googleSignIn').addEventListener('click', async () => {
             try {
                 await signInWithPopup(auth, provider);
                 console.log('User signed in with Google');
-                window.location.href = '/dashboard.html'; // Redirect to dashboard after successful sign-in
+                window.location.href = '/dashboard.html';
             } catch (error) {
                 console.error('Error signing in with Google:', error.message);
                 alert('Google sign-in failed: ' + error.message);
